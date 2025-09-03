@@ -19,13 +19,10 @@ Please return for blog post on EJPT.
 
 The reccommened training featured on the INE website is the Penetration Testing Student learning path which consists of 153h of video to consume. As well as 108 different labs. Not all of these need to be completed (see below) as some are duplicate labs and some are just flat out not required. The training for the exam is broken up into 4 main sections 
 
-Assessment Methodologies (25h)
-
-Host & Networking Auditing (2h)
-
-Host & Network Penetration Testing (113h)
-
-Web Application Penetration Testing (9h)
+- **Assessment Methodologies** – ⏱️ 25h  
+- **Host & Networking Auditing** – ⏱️ 2h  
+- **Host & Network Penetration Testing** – ⏱️ 113h  
+- **Web Application Penetration Testing** – ⏱️ 9h  
 
 The exam itself has a time limit of 48 hours and a set of 35 different question (multiple choice)
 
