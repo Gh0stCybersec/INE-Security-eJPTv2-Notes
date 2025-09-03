@@ -17,16 +17,24 @@ Please return for blog post on EJPT.
 
 ## eJPTv2 Exam and Training Overview
 
-The reccommened training featured on the INE website is the Penetration Testing Student learning path which consists of 153h of video to consume. As well as 108 different labs. Not all of these need to be completed (see below) as some are duplicate labs and some are just flat out not required. 
+The reccommened training featured on the INE website is the Penetration Testing Student learning path which consists of 153h of video to consume. As well as 108 different labs. Not all of these need to be completed (see below) as some are duplicate labs and some are just flat out not required. The training for the exam is broken up into 4 main sections 
 
-The exam itself has a time limit of 48 hours and a set of 35 different question (some multiple choice such as below.
+Assessment Methodologies (25h)
 
-The exam itself is not meant to be a CTF but to simualte a real penetration test! 
- 
+Host & Networking Auditing (2h)
+
+Host & Network Penetration Testing (113h)
+
+Web Application Penetration Testing (9h)
+
+The exam itself has a time limit of 48 hours and a set of 35 different question (multiple choice)
+
+The exam is not meant to be a CTF but to simulate a real penetration test! 
+
 ## eJPTv2 Exam and Study Tips
 
 Training to Skip:
-If you follow the reccomened learning path you can skip the following modules.
+If you follow the recommended learning path you can skip the following modules.
 
 Phishing with GoPhish
 Armitage
@@ -37,7 +45,15 @@ Social Engineering section
 
 ## Useful links 
 
-[eJKPT Lab Guidelines](https://drive.google.com/file/d/1KN7pB3trLNSk1jhUMrUAEkmbmyJsuJz0/view)
+Below are some useful links for the Exam. 
+
+Information on how the exam lab will work with some troubleshooting tips [eJPT Lab Guidelines](https://drive.google.com/file/d/1KN7pB3trLNSk1jhUMrUAEkmbmyJsuJz0/view)
+
+Information on scope of engagment, exam objectives and recommended tools [Letter of Engagement](https://drive.google.com/file/d/1Kc2pcgJgTJDQMiToYMJk21fNOQHykjL3/view)
+
+
+
+
 
 
 
