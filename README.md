@@ -28,6 +28,8 @@ The exam itself has a time limit of 48 hours and a set of 35 different question 
 
 The exam is not meant to be a CTF but to simulate a real penetration test! 
 
+To pass the eJPT, you must receive an overall exam score of at least 70%.
+
 ## eJPTv2 Exam and Study Tips
 
 Training to Skip:
@@ -37,15 +39,18 @@ If you follow the recommended learning path you can skip the following modules.
 - **Armitage** ❌ *(pretty much a dead project)*
 - **PowerShell Empire** ❌ *(Social Engineering section)*
 
-
-
 ## Useful links 
 
 Below are some useful links for the Exam. 
 
-Information on how the exam lab will work with some troubleshooting tips [eJPT Lab Guidelines](https://drive.google.com/file/d/1KN7pB3trLNSk1jhUMrUAEkmbmyJsuJz0/view)
+## eJPT Exam Resources
 
-Information on scope of engagment, exam objectives and recommended tools [Letter of Engagement](https://drive.google.com/file/d/1Kc2pcgJgTJDQMiToYMJk21fNOQHykjL3/view)
+- 📄 **[Lab Guidelines](https://drive.google.com/file/d/1KN7pB3trLNSk1jhUMrUAEkmbmyJsuJz0/view)**  
+  Learn how the exam lab works, including troubleshooting tips and setup instructions.
+
+- ✉️ **[Letter of Engagement](https://drive.google.com/file/d/1Kc2pcgJgTJDQMiToYMJk21fNOQHykjL3/view)**  
+  Overview of the scope of engagement, exam objectives, and recommended tools.
+
 
 
 
