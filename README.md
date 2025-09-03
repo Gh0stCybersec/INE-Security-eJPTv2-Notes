@@ -33,7 +33,7 @@ The exam is not meant to be a CTF but to simulate a real penetration test!
 Training to Skip:
 If you follow the recommended learning path you can skip the following modules.
 
-- **Phishing with GoPhish** ✅
+- **Phishing with GoPhish** ❌
 - **Armitage** ❌ *(pretty much a dead project)*
 - **PowerShell Empire** ❌ *(Social Engineering section)*
 
