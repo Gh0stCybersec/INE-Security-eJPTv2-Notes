@@ -234,20 +234,27 @@ Zone transfers may discover internal IP addresses
 You will often find that corporate networks will misconfigure networks and leak internal address space - which can be useful for targeting with malware
 
 ```
-nmap --script=dns-zone-transfer -p 53 target.com
+nmap --script=dns-zone-transfer -p 53 target.com   # Checks if port 53 allows zone transfer using Nmap script
 ```
 
 ```
-fierce -dns zonetransfer.me 
-fierce --domain hackersploit.org 
+fierce -dns zonetransfer.me                        # Attempts DNS zone transfer and subdomain enumeration
+fierce --domain hackersploit.org                  # Another way to perform DNS reconnaissance with Fierce
 ```
 
-Can also perform with host - l   Give the domain name and then the nameserver of the site 
+ Give the domain name and then the nameserver of the site 
 ```
-host -l  zonetransfer.me nsztm.digi.ninja.  
+host -l zonetransfer.me nsztm.digi.ninja.        # Attempts zone transfer specifying the domain and its nameserver
 ```
 
-Same can be performed with dig - use this as its most preferred as it doesn't do the brute force 
+Give the domain name and then the nameserver of the site
 ```
-dig axfr @nsztm1.digi.ninja  zonetransfer.me     
+dig axfr @nsztm1.digi.ninja zonetransfer.me      # Performs zone transfer with dig; lists all DNS records without brute forcing 
 ```
+
+
+
+
+
+
+## Port Scanning 
