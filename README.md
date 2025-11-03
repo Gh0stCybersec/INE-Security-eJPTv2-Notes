@@ -55,10 +55,71 @@ Below are some useful links for the Exam.
   Overview of the scope of engagement, exam objectives, and recommended tools.
 
 
+## Try Hack Me Machines 
 
+### Enumeration
 
+- [Enumeration](https://tryhackme.com/room/enumerationpe) (Linux & Windows) — **[PAID]**
+- [Web Enumeration](https://tryhackme.com/room/webenumerationv2) (Web) — **[PAID]**
+- [SimpleCTF](https://tryhackme.com/room/easyctf) (Linux)
 
+### Windows Exploitation
 
+- [Blue](https://tryhackme.com/room/blue)
+- [Ice](https://tryhackme.com/room/ice)
+- [Blaster](https://tryhackme.com/room/blaster)
+- [Retro](https://tryhackme.com/room/retro)
+- [Steel Mountain](https://tryhackme.com/room/steelmountain) — **[PAID]**
+- [Relevant](https://tryhackme.com/room/relevant)
+
+### Linux Exploitation
+
+- [Basic Pentesting](https://tryhackme.com/room/basicpentestingjt)
+- [Kenobi](https://tryhackme.com/room/kenobi)
+- [Easy Peasy](https://tryhackme.com/room/easypeasyctf) (Hash cracking)
+- [Sudo Agent](https://tryhackme.com/room/agentsudoctf) (Priv Esc)
+- [RootMe](https://tryhackme.com/room/rrootme) (PrivEsc)
+- [What the Shell?](https://tryhackme.com/room/introtoshells) (Shells and Reverse Shells) — **[PAID]**
+- [Brooklyn Nine Nine](https://tryhackme.com/room/brooklynninenine) (Brute force)
+- [Poster](https://tryhackme.com/room/poster) (PostgreSQL)
+- [Chill Hack](https://tryhackme.com/room/chillhack) (SQLi)
+- [SkyNet](https://tryhackme.com/room/skynet) (boot2root) — **[PAID]**
+- [Startup](https://tryhackme.com/room/startup) (boot2root)
+- [GamingServer](https://tryhackme.com/room/gamingserver) (boot2root)
+
+### Privilege Escalation
+
+- [Linux PrivEsc](https://tryhackme.com/room/linuxprivesc)
+- [Linux Privilege Escalation](https://tryhackme.com/room/linprivesc)
+- [Common Linux PrivEsc](https://tryhackme.com/room/commonlinuxprivesc) — **[PAID]**
+- [Windows PrivEsc](https://tryhackme.com/room/windows10privesc)
+- [Windows Privilege Escalation](https://tryhackme.com/room/windowsprivesc20) — **[PAID]**
+
+### Web & CMS
+
+- [Ignite](https://tryhackme.com/room/ignite) (FuelCMS)
+- [Blog](https://tryhackme.com/room/blog) (WordPress)
+- [ColdBox: Easy](https://tryhackme.com/room/colddboxeasy) (WordPress)
+- [Erit Securus I](https://tryhackme.com/room/eritsecurusi) (BoltCMS) — **[PAID]**
+- [Bolt](https://tryhackme.com/room/bolt) (BoltCMS)
+- [SQHell](https://tryhackme.com/room/sqhell) (SQLi)
+
+### Pivoting
+
+- [Wreath](https://tryhackme.com/room/wreath) (Windows)
+- [Lateral Movement and Pivoting](https://tryhackme.com/room/lateralmovementandpivoting) (Windows) — **[PAID]**
+- [VulnNet: Internal](https://tryhackme.com/room/vulnnetinternal) (Linux)
 
 
 ## Other Reasources 
+
+List of Useful websites 
+- [**CrackStation**](https://crackstation.net/)
+- [**CyberChef**](https://cyberchef.org/)
+- [**GTFOBins**](https://gtfobins.github.io/)  - great for privledge escalation
+- [**HackTricks**](https://book.hacktricks.xyz/)
+- [**Hash Analyzer**](https://www.tunnelsup.com/hash-analyzer/)
+- [**Nmap NSE Doc**](https://nmap.org/nsedoc/scripts/)
+- [**PayLoadAllTheThing**s](https://github.com/swisskyrepo/PayloadsAllTheThings)
+- [**Reverse Shell Generator**](https://www.revshells.com/)
+- [**Upgrade a Linux reverse shell to a fully usable TTY shell**](https://zweilosec.github.io/posts/upgrade-linux-shell/)
