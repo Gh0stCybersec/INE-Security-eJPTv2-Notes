@@ -11,6 +11,19 @@ V2).
 
 It’s no longer under eLearnSecurity because eLearnSecurity was acquired by INE (Internetwork Expert). INE has rebranded and integrated eLearnSecurity’s certifications under its own platform. The exam and training remain, but they’re now managed and delivered by INE instead of the old eLearnSecurity brand. Hopefully that clears it up :) 
 
+
+## Results 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Gh0stCybersec/INE-Security-eJPTv2-Notes/main/eJPTv2_Logo.png" alt="eJPTv2 Logo" 
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Gh0stCybersec/INE-Security-eJPTv2-Notes/main/eJPTv2_Logo.png" alt="eJPTv2 Logo" 
+	  
+</p>
+
+
+
 ## Blog 
 
 I have written a blog post on the exam including a general review and some tips. 
