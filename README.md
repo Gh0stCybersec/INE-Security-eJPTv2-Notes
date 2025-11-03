@@ -15,14 +15,14 @@ It’s no longer under eLearnSecurity because eLearnSecurity was acquired by INE
 
 I have written a blog post on the exam including a general review and some tips. 
 
-
 Please see the blog post at my security blog [Ghost Bit Security](https://ghostbitsecurity.com/)
-
 
 
 ## eJPTv2 Exam and Training Overview
 
-The reccommened training featured on the INE website is the Penetration Testing Student learning path which consists of 153h of video to consume. As well as 108 different labs. Not all of these need to be completed (see below) as some are duplicate labs and some are just flat out not required. The training for the exam is broken up into 4 main sections 
+- 📄 **[MY EJPT Cheat Sheet](https://github.com/Gh0stCybersec/INE-Security-eJPTv2-Notes/blob/main/eJPT%20Cheat%20Sheet.md)**  
+
+The recommeneded training featured on the INE website is the Penetration Testing Student learning path which consists of 153h of video to consume. As well as 108 different labs. Not all of these need to be completed (see below) as some are duplicate labs and some are just flat out not required. The training for the exam is broken up into 4 main sections 
 
 - **Assessment Methodologies** – ⏱️ 25h  
 - **Host & Networking Auditing** – ⏱️ 2h  
@@ -62,6 +62,9 @@ Below are some useful links for the Exam.
 
 ## eJPT Exam Resources
 
+- 📄 **[MY EJPT Cheat Sheet](https://github.com/Gh0stCybersec/INE-Security-eJPTv2-Notes/blob/main/eJPT%20Cheat%20Sheet.md)**  
+  Collection of most of the useful commands and tricks needed to pass. 
+  
 - 📄 **[Lab Guidelines](https://drive.google.com/file/d/1KN7pB3trLNSk1jhUMrUAEkmbmyJsuJz0/view)**  
   Learn how the exam lab works, including troubleshooting tips and setup instructions.
 
