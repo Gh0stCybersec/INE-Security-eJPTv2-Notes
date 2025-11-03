@@ -44,6 +44,18 @@ If you follow the recommended learning path you can skip the following modules.
 - **Armitage** ❌ *(pretty much a dead project)*
 - **PowerShell Empire** ❌ *(Social Engineering section)*
 
+### General Tips 
+- Group all questions together that relate to the same server and answer them before moving on 
+- **Use the exclusion method** for Multi-choice questions. You know there’s only one right answer, so the other three must be wrong.
+   - crucial to submit the flags as soon as you find it as they change after each reset.
+   -  Make yourself familiar with Webdev platforms like "Drupal" and "Wordpress" and how to attack those.
+	- Make sure to use WPSCAN
+- There are 5–6 machines in DMZ and 1–2 machines in the internal network
+- Just make sure you've completed the INE labs and maybe one or two machines to exploit WordPress and Drupal.
+- Hydra is important, especially with Rockyou.
+- For directory scanning use dirbuster not metasploit with /usr/share/wordlist/dirb/common.txt
+
+
 ## Useful links 
 
 Below are some useful links for the Exam. 
