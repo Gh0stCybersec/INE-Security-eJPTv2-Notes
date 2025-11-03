@@ -13,9 +13,11 @@ It’s no longer under eLearnSecurity because eLearnSecurity was acquired by INE
 
 ## Blog 
 
-Please return for blog post on EJPT including an exam review and critique which will be at my site below.
+I have written a blog post on the exam including a general review and some tips. 
 
-[Ghost Bit Security](https://ghostbitsecurity.com/)
+
+Please see the blog post at my security blog [Ghost Bit Security](https://ghostbitsecurity.com/)
+
 
 
 ## eJPTv2 Exam and Training Overview
