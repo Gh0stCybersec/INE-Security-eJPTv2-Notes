@@ -56,9 +56,33 @@ If you follow the recommended learning path you can skip the following modules.
 - For directory scanning use dirbuster not metasploit with /usr/share/wordlist/dirb/common.txt
 
 
-## Useful links 
+## Note Taking Example
 
-Below are some useful links for the Exam. 
+I would also reccommend using a note taking platform such as Obsidian, OneNote or Notion to store notes for the exam. Also using a not taking app with tables can assist with keeping track of machines and services during the pentest. Example Below
+
+##### Machine IP - Operating System - Purpose - Compromised? - Deadend 
+###### Services
+
+| Port | Protocol | Service/Version | Notes | Compromised? |
+| ---- | -------- | --------------- | ----- | ------------ |
+|      |          |                 |       |              |
+|      |          |                 |       |              |
+|      |          |                 |       |              |
+|      |          |                 |       |              |
+|      |          |                 |       |              |
+|      |          |                 |       |              |
+|      |          |                 |       |              |
+
+
+###### Credentials
+
+| User | Password | Service | Cracked by |
+| ---- | -------- | ------- | ---------- |
+|      |          |         |            |
+|      |          |         |            |
+|      |          |         |            |
+|      |          |         |            |
+
 
 ## eJPT Exam Resources
 
