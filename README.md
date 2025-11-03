@@ -14,7 +14,7 @@ It’s no longer under eLearnSecurity because eLearnSecurity was acquired by INE
 
 ## Results 
 <p align="center">
-  <img src="  <img src="[https://raw.githubusercontent.com/Gh0stCybersec/INE-Security-eJPTv2-Notes/main/eJPTv2_Logo.png](https://github.com/Gh0stCybersec/INE-Security-eJPTv2-Notes/blob/main/Screenshot%202025-11-03%20213643.png)" alt="eJPTv2 Logo" " alt="eJPTv2 Logo" 
+![Descriptive alt text](https://raw.githubusercontent.com/Gh0stCybersec/INE-Security-eJPTv2-Notes/main/Screenshot%202025-11-03%20213643.png)
 </p>
 
 <p align="center">
